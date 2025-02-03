@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/yrichika/gfaker/pkg/fk/core"
+	"github.com/nolafw/faker/pkg/fk/core"
 )
 
 type Barcode struct {

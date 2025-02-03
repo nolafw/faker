@@ -3,9 +3,9 @@ package core
 import (
 	"testing"
 
+	"github.com/nolafw/faker/pkg/fk/common/util"
+	"github.com/nolafw/faker/pkg/fk/testutil"
 	"github.com/yrichika/gest/pkg/gt"
-	"github.com/yrichika/gfaker/pkg/fk/common/util"
-	"github.com/yrichika/gfaker/pkg/fk/testutil"
 )
 
 func TestRandStr(testingT *testing.T) {

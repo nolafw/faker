@@ -3,8 +3,8 @@ package color
 import (
 	"fmt"
 
-	"github.com/yrichika/gfaker/pkg/fk/core"
-	"github.com/yrichika/gfaker/pkg/fk/provider"
+	"github.com/nolafw/faker/pkg/fk/core"
+	"github.com/nolafw/faker/pkg/fk/provider"
 )
 
 type Color struct {

@@ -5,7 +5,7 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/yrichika/gfaker/pkg/fk/common/log"
+	"github.com/nolafw/faker/pkg/fk/common/log"
 )
 
 // time パッケージをランダムに扱うもの

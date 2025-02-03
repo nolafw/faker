@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"testing"
 
+	"github.com/nolafw/faker/pkg/fk/testutil"
 	"github.com/yrichika/gest/pkg/gt"
-	"github.com/yrichika/gfaker/pkg/fk/testutil"
 )
 
 func TestUtil(testingT *testing.T) {

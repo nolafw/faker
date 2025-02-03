@@ -3,8 +3,8 @@ package core
 import (
 	"testing"
 
+	"github.com/nolafw/faker/pkg/fk/common/util"
 	"github.com/yrichika/gest/pkg/gt"
-	"github.com/yrichika/gfaker/pkg/fk/common/util"
 )
 
 func TestRandSlice(testingT *testing.T) {

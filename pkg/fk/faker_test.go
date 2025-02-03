@@ -3,8 +3,8 @@ package fk
 import (
 	"testing"
 
+	"github.com/nolafw/faker/pkg/fk/provider/locale/ja_JP"
 	"github.com/yrichika/gest/pkg/gt"
-	"github.com/yrichika/gfaker/pkg/fk/provider/locale/ja_JP"
 )
 
 func TestFaker(testingT *testing.T) {

@@ -9,9 +9,9 @@ import (
 	"image/jpeg"
 	"image/png"
 
-	"github.com/yrichika/gfaker/pkg/fk/common/log"
-	"github.com/yrichika/gfaker/pkg/fk/core"
-	"github.com/yrichika/gfaker/pkg/fk/provider"
+	"github.com/nolafw/faker/pkg/fk/common/log"
+	"github.com/nolafw/faker/pkg/fk/core"
+	"github.com/nolafw/faker/pkg/fk/provider"
 )
 
 type Image struct {

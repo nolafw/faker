@@ -3,7 +3,7 @@ package core
 import (
 	"math/rand"
 
-	"github.com/yrichika/gfaker/pkg/fk/common/log"
+	"github.com/nolafw/faker/pkg/fk/common/log"
 )
 
 type RandSlice struct {

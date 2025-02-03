@@ -1,8 +1,8 @@
 package global
 
 import (
-	"github.com/yrichika/gfaker/pkg/fk/provider"
-	"github.com/yrichika/gfaker/pkg/fk/provider/locale/en_US"
+	"github.com/nolafw/faker/pkg/fk/provider"
+	"github.com/nolafw/faker/pkg/fk/provider/locale/en_US"
 )
 
 func CreateInternets() *provider.Internets {

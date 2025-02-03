@@ -23,7 +23,7 @@ func UnavailableLocale(skip int) {
 }
 
 func WrongUsageMsg(msg string) string {
-	return fmt.Sprintf("gfaker might-be-wrong-usage warning. Empty value of the type returned: \"%s\"", msg)
+	return fmt.Sprintf("faker might-be-wrong-usage warning. Empty value of the type returned: \"%s\"", msg)
 }
 
 func WrongUsage(msg string, skip int) {

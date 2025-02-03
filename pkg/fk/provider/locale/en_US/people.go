@@ -1,7 +1,7 @@
 package en_US
 
 import (
-	"github.com/yrichika/gfaker/pkg/fk/provider"
+	"github.com/nolafw/faker/pkg/fk/provider"
 )
 
 func CreatePeople() *provider.People {

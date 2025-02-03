@@ -6,9 +6,9 @@ import (
 	"net"
 	"strings"
 
-	"github.com/yrichika/gfaker/pkg/fk/common/util"
-	"github.com/yrichika/gfaker/pkg/fk/core"
-	"github.com/yrichika/gfaker/pkg/fk/provider"
+	"github.com/nolafw/faker/pkg/fk/common/util"
+	"github.com/nolafw/faker/pkg/fk/core"
+	"github.com/nolafw/faker/pkg/fk/provider"
 )
 
 type Internet struct {

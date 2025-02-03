@@ -3,11 +3,11 @@ package color
 import (
 	"testing"
 
+	"github.com/nolafw/faker/pkg/fk/common/util"
+	"github.com/nolafw/faker/pkg/fk/core"
+	"github.com/nolafw/faker/pkg/fk/provider"
+	"github.com/nolafw/faker/pkg/fk/provider/global"
 	"github.com/yrichika/gest/pkg/gt"
-	"github.com/yrichika/gfaker/pkg/fk/common/util"
-	"github.com/yrichika/gfaker/pkg/fk/core"
-	"github.com/yrichika/gfaker/pkg/fk/provider"
-	"github.com/yrichika/gfaker/pkg/fk/provider/global"
 )
 
 func TestColor(testingT *testing.T) {

@@ -1,4 +1,4 @@
-module github.com/yrichika/gfaker
+module github.com/nolafw/faker
 
 go 1.21.5
 

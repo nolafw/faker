@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"math/rand"
 
-	"github.com/yrichika/gfaker/pkg/fk/common/log"
+	"github.com/nolafw/faker/pkg/fk/common/log"
 )
 
 const letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"

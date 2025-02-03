@@ -3,10 +3,10 @@ package company
 import (
 	"fmt"
 
-	"github.com/yrichika/gfaker/pkg/fk/common/log"
-	"github.com/yrichika/gfaker/pkg/fk/common/util"
-	"github.com/yrichika/gfaker/pkg/fk/core"
-	"github.com/yrichika/gfaker/pkg/fk/provider"
+	"github.com/nolafw/faker/pkg/fk/common/log"
+	"github.com/nolafw/faker/pkg/fk/common/util"
+	"github.com/nolafw/faker/pkg/fk/core"
+	"github.com/nolafw/faker/pkg/fk/provider"
 )
 
 type Company struct {

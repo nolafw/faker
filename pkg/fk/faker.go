@@ -1,20 +1,20 @@
 package fk
 
 import (
-	"github.com/yrichika/gfaker/pkg/fk/common/util"
-	"github.com/yrichika/gfaker/pkg/fk/core"
-	"github.com/yrichika/gfaker/pkg/fk/generator/address"
-	"github.com/yrichika/gfaker/pkg/fk/generator/barcode"
-	"github.com/yrichika/gfaker/pkg/fk/generator/color"
-	"github.com/yrichika/gfaker/pkg/fk/generator/company"
-	"github.com/yrichika/gfaker/pkg/fk/generator/file"
-	"github.com/yrichika/gfaker/pkg/fk/generator/image"
-	"github.com/yrichika/gfaker/pkg/fk/generator/internet"
-	"github.com/yrichika/gfaker/pkg/fk/generator/lorem"
-	"github.com/yrichika/gfaker/pkg/fk/generator/person"
-	"github.com/yrichika/gfaker/pkg/fk/provider"
-	"github.com/yrichika/gfaker/pkg/fk/provider/global"
-	"github.com/yrichika/gfaker/pkg/fk/provider/locale/en_US"
+	"github.com/nolafw/faker/pkg/fk/common/util"
+	"github.com/nolafw/faker/pkg/fk/core"
+	"github.com/nolafw/faker/pkg/fk/generator/address"
+	"github.com/nolafw/faker/pkg/fk/generator/barcode"
+	"github.com/nolafw/faker/pkg/fk/generator/color"
+	"github.com/nolafw/faker/pkg/fk/generator/company"
+	"github.com/nolafw/faker/pkg/fk/generator/file"
+	"github.com/nolafw/faker/pkg/fk/generator/image"
+	"github.com/nolafw/faker/pkg/fk/generator/internet"
+	"github.com/nolafw/faker/pkg/fk/generator/lorem"
+	"github.com/nolafw/faker/pkg/fk/generator/person"
+	"github.com/nolafw/faker/pkg/fk/provider"
+	"github.com/nolafw/faker/pkg/fk/provider/global"
+	"github.com/nolafw/faker/pkg/fk/provider/locale/en_US"
 )
 
 type Faker struct {

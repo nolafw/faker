@@ -1,6 +1,6 @@
 package global
 
-import "github.com/yrichika/gfaker/pkg/fk/provider"
+import "github.com/nolafw/faker/pkg/fk/provider"
 
 func CreateLorems() *provider.Lorems {
 	return &provider.Lorems{

@@ -1,7 +1,7 @@
 package ja_JP
 
 import (
-	"github.com/yrichika/gfaker/pkg/fk/provider"
+	"github.com/nolafw/faker/pkg/fk/provider"
 )
 
 func CreatePeople() *provider.People {
