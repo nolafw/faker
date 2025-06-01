@@ -1,20 +1,19 @@
-package fk
+package fk_test
 
 import (
-	"testing"
+	. "github.com/onsi/ginkgo/v2"
+	. "github.com/onsi/gomega"
 
+	"github.com/nolafw/faker/pkg/fk"
 	"github.com/nolafw/faker/pkg/fk/provider/locale/ja_JP"
-	"github.com/yrichika/gest/pkg/gt"
 )
 
-func TestFaker(testingT *testing.T) {
-	t := gt.CreateTest(testingT)
+var _ = Describe("Faker", func() {
 
-	t.Describe("just tinkering", func() {
-		// f := Create()
+	Context("faker with ja_JP locale", func() {
 		j := ja_JP.New()
-		f := CreateWithLocale(j)
-		t.Test("Faker should ...", func() {
+		f := fk.CreateWithLocale(j)
+		It("just tinkering; not testing, just experimenting with outputs", func() {
 			f.Rand.Bool.Evenly()
 			f.Rand.Bool.WeightedToTrue(0.8)
 
@@ -39,7 +38,10 @@ func TestFaker(testingT *testing.T) {
 			f.Lorem.Word()
 			f.Address.City()
 			f.Company.Name()
-		})
 
+			// Just a placeholder expectation to ensure the test runs
+			Expect(true).To(Equal(true))
+		})
 	})
-}
+
+})
