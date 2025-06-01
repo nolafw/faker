@@ -1,42 +1,34 @@
-package util
+package util_test
 
 import (
 	"fmt"
-	"testing"
 
+	. "github.com/onsi/ginkgo/v2"
+	. "github.com/onsi/gomega"
+
+	"github.com/nolafw/faker/pkg/fk/common/util"
 	"github.com/nolafw/faker/pkg/fk/testutil"
-	"github.com/yrichika/gest/pkg/gt"
 )
 
-func TestUtil(testingT *testing.T) {
+var _ = Describe("TruncateToPrecision", func() {
+	rand := util.RandSeed()
+	It("should truncate to precision", func() {
+		precision := rand.Intn(8)
+		r := util.TruncateToPrecision(1.23456789123456, precision)
+		fmt.Println(r)
+		decimalLength := testutil.GetDecimalLength(r)
+		fmt.Println(decimalLength)
 
-	rand := RandSeed()
-
-	t := gt.CreateTest(testingT)
-	t.Describe("util", func() {
-		t.Todo("create tests")
+		Expect(decimalLength).To(Equal(precision))
 	})
+})
 
-	t2 := gt.CreateTest(testingT)
-	t2.Describe("TruncateToPrecision", func() {
-		t2.It("should truncate to precision", func() {
-			precision := rand.Intn(8)
-			r := TruncateToPrecision(1.23456789123456, precision)
-			fmt.Println(r)
-			decimalLength := testutil.GetDecimalLength(r)
-			fmt.Println(decimalLength)
-			gt.Expect(t2, &decimalLength).ToBe(precision)
-		})
+var _ = Describe("CapFirstLetter", func() {
+	It("should capitalize the first letter", func() {
+		r := util.CapFirstLetter("hello")
+		Expect(r).To(Equal("Hello"))
+
+		r2 := util.CapFirstLetter("world")
+		Expect(r2).To(Equal("World"))
 	})
-
-	t3 := gt.CreateTest(testingT)
-	t3.Describe("CapFirstLetter", func() {
-		t3.It("should capitalize the first letter", func() {
-			r := CapFirstLetter("hello")
-			gt.Expect(t3, &r).ToBe("Hello")
-
-			r2 := CapFirstLetter("world")
-			gt.Expect(t3, &r2).ToBe("World")
-		})
-	})
-}
+})
