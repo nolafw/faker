@@ -1,41 +1,41 @@
-package core
+package core_test
 
 import (
-	"testing"
+	. "github.com/onsi/ginkgo/v2"
+	. "github.com/onsi/gomega"
 
 	"github.com/nolafw/faker/pkg/fk/common/util"
+	"github.com/nolafw/faker/pkg/fk/core"
 	"github.com/nolafw/faker/pkg/fk/testutil"
-	"github.com/yrichika/gest/pkg/gt"
 )
 
-func TestRandBool(testingT *testing.T) {
-	randBool := NewRandBool(util.RandSeed())
-
-	t := gt.CreateTest(testingT)
-	t.Describe("Evenly", func() {
-		t.It("should return true or false", func() {
+var _ = Describe("Tests for random bool functions", func() {
+	randBool := core.NewRandBool(util.RandSeed())
+	Describe("Evenly", func() {
+		It("should return true or false", func() {
 			r := randBool.Evenly()
 			// Check with output
 			testutil.Output("RandBool.Evenly", r)
+			Expect(r).To(BeAssignableToTypeOf(true))
 		})
 	})
 
-	t2 := gt.CreateTest(testingT)
-	t2.Describe("Weighted", func() {
-		t2.It("should return weighted bool", func() {
+	Describe("Weighted", func() {
+		It("should return weighted bool", func() {
 			r := randBool.WeightedToTrue(0.7)
 			// Check with output
 			testutil.Output("RandBool.WeightedToTrue", r)
+			Expect(r).To(BeAssignableToTypeOf(true))
 		})
 
-		t2.It("should return true when 1", func() {
+		It("should return true when 1", func() {
 			r := randBool.WeightedToTrue(1)
-			gt.Expect(t2, &r).ToBe(true)
+			Expect(r).To(BeTrue())
 		})
 
-		t2.It("should return false when 0", func() {
+		It("should return false when 0", func() {
 			r := randBool.WeightedToTrue(0)
-			gt.Expect(t2, &r).ToBe(false)
+			Expect(r).To(BeFalse())
 		})
 	})
-}
+})

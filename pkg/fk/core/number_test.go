@@ -1,29 +1,28 @@
-package core
+package core_test
 
 import (
-	"testing"
+	. "github.com/onsi/ginkgo/v2"
+	. "github.com/onsi/gomega"
 
 	"github.com/nolafw/faker/pkg/fk/common/util"
-	"github.com/yrichika/gest/pkg/gt"
+	"github.com/nolafw/faker/pkg/fk/core"
 )
 
-func TestRandNum(testingT *testing.T) {
-	t := gt.CreateTest(testingT)
-
-	randNum := NewRandNum(util.RandSeed())
-	t.Describe("IntBt", func() {
-		t.It("should return int value in given range", func() {
+var _ = Describe("Tests for random number functions", func() {
+	randNum := core.NewRandNum(util.RandSeed())
+	Describe("IntBt", func() {
+		It("should return int value in given range", func() {
 			r := randNum.IntBt(1, 10)
-			gt.Expect(t, &r).ToBe_(gt.Between(1, 10))
+			Expect(r).To(BeNumerically(">=", 1))
+			Expect(r).To(BeNumerically("<=", 10))
 		})
-
 	})
 
-	t2 := gt.CreateTest(testingT)
-	t2.Describe("Float32Bt", func() {
-		t2.It("should return float value in given range", func() {
+	Describe("Float32Bt", func() {
+		It("should return float value in given range", func() {
 			r := randNum.Float32Bt(1.0, 2.0)
-			gt.Expect(t2, &r).ToBe_(gt.Between(float32(1.0), 2.0))
+			Expect(r).To(BeNumerically(">", 1.0))
+			Expect(r).To(BeNumerically("<", 2.0))
 		})
 	})
-}
+})

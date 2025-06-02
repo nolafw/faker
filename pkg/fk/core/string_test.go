@@ -1,75 +1,91 @@
-package core
+package core_test
 
 import (
-	"testing"
-
 	"github.com/nolafw/faker/pkg/fk/common/util"
+	"github.com/nolafw/faker/pkg/fk/core"
 	"github.com/nolafw/faker/pkg/fk/testutil"
-	"github.com/yrichika/gest/pkg/gt"
+	. "github.com/onsi/ginkgo/v2"
+	. "github.com/onsi/gomega"
 )
 
-func TestRandStr(testingT *testing.T) {
-	randStr := NewRandStr(util.RandSeed())
+var _ = Describe("Tests for random string functions", func() {
+	randStr := core.NewRandStr(util.RandSeed())
 
-	tChar := gt.CreateTest(testingT)
-	tChar.Describe("Char", func() {
-		tChar.It("should return a single char includes alpha, num, special", func() {
+	Describe("Char", func() {
+		It("should return a single char includes alpha, num, special", func() {
 			r := randStr.Char()
+
+			Expect(r).ToNot(BeEmpty())
+			Expect(len(r)).To(Equal(1))
+
 			// check output
 			testutil.Output("RandStr.Char", r)
 		})
 	})
 
-	tLet := gt.CreateTest(testingT)
-	tLet.Describe("Letter", func() {
-		tLet.It("should return a single letter", func() {
+	Describe("Letter", func() {
+		It("should return a single letter", func() {
 			r := randStr.Letter()
+
+			Expect(r).ToNot(BeEmpty())
+			Expect(len(r)).To(Equal(1))
+
 			// check output
 			testutil.Output("RandStr.Letter", r)
 		})
 	})
 
-	tDigit := gt.CreateTest(testingT)
-	tDigit.Describe("Digit", func() {
-		tDigit.It("should return a single digit", func() {
+	Describe("Digit", func() {
+		It("should return a single digit", func() {
 			r := randStr.Digit()
+
+			Expect(r).ToNot(BeEmpty())
+			Expect(len(r)).To(Equal(1))
+
 			// check output
 			testutil.Output("RandStr.Digit", r)
 		})
 	})
 
-	tAlphaRange := gt.CreateTest(testingT)
-	tAlphaRange.Describe("AlphaRange", func() {
-		tAlphaRange.It("should return a string with random length", func() {
+	Describe("AlphaRange", func() {
+		It("should return a string with random length", func() {
 			r := randStr.AlphaRange(1, 5)
 			length := len(r)
-			gt.Expect(tAlphaRange, &length).ToBe_(gt.Between(1, 5))
+
+			Expect(length).To(BeNumerically(">", 0))
+			Expect(length).To(BeNumerically("<=", 5))
+
 			// check output
 			testutil.Output("RandStr.AlphaRange", r)
 		})
 	})
 
-	tAlphaFixed := gt.CreateTest(testingT)
-	tAlphaFixed.Describe("AlphaFixedLength", func() {
-		tAlphaFixed.It("should return a string with fixed length", func() {
+	Describe("AlphaFixedLength", func() {
+		It("should return a string with fixed length", func() {
 			r := randStr.AlphaFixedLength(5)
 			length := len(r)
-			gt.Expect(tAlphaFixed, &length).ToBe(5)
+
+			Expect(length).To(Equal(5))
+
 			// check output
 			testutil.Output("RandStr.AlphaFixedLength", r)
 		})
 	})
+	Describe("AlphaDigitsLike", func() {
+		When("like is 'abc-###-???'", func() {
+			It("should return a string with specified alpha and digits", func() {
+				r := randStr.AlphaDigitsLike("abc-###-???")
+				Expect(r).To(MatchRegexp("abc-[0-9]{3}-[a-zA-Z]{3}"))
+			})
+		})
+		When("like is '***'", func() {
+			It("should return a string with specified alpha and digits", func() {
+				r := randStr.AlphaDigitsLike("***")
+				Expect(r).To(MatchRegexp(`[\d\w]{3}`))
 
-	tAlDgLike := gt.CreateTest(testingT)
-	tAlDgLike.Describe("AlphaDigitsLike", func() {
-		tAlDgLike.It("should return a string with specified alpha and digits", func() {
-			r := randStr.AlphaDigitsLike("abc-###-???")
-			gt.Expect(tAlDgLike, &r).ToMatchRegex("abc-[0-9]{3}-[a-zA-Z]{3}")
+				testutil.Output("RandStr.AlphaDigitsLike", r)
+			})
 		})
-		tAlDgLike.It("should return a string with specified alpha and digits", func() {
-			r := randStr.AlphaDigitsLike("***")
-			gt.Expect(tAlDgLike, &r).ToMatchRegex(`[\d\w]{3}`)
-			testutil.Output("RandStr.AlphaDigitsLike", r)
-		})
+
 	})
-}
+})

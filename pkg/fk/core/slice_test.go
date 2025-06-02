@@ -1,30 +1,29 @@
-package core
+package core_test
 
 import (
-	"testing"
+	. "github.com/onsi/ginkgo/v2"
+	. "github.com/onsi/gomega"
 
 	"github.com/nolafw/faker/pkg/fk/common/util"
-	"github.com/yrichika/gest/pkg/gt"
+	"github.com/nolafw/faker/pkg/fk/core"
 )
 
-func TestRandSlice(testingT *testing.T) {
-	randSlice := NewRandSlice(util.RandSeed())
+var _ = Describe("Tests for random slice functions", func() {
 
-	t := gt.CreateTest(testingT)
-	t.Describe("StrElem", func() {
+	randSlice := core.NewRandSlice(util.RandSeed())
+	Describe("StrElem", func() {
 		slice := []string{"abc", "efg", "hij", "klm"}
-		t.It("should return a random string element from the slice", func() {
+		It("should return a random string element from the slice", func() {
 			r := randSlice.StrElem(slice)
-			gt.Expect(t, &r).ToBeIn(slice)
+			Expect(r).To(BeElementOf(slice))
 		})
 	})
 
-	t2 := gt.CreateTest(testingT)
-	t2.Describe("IntElem", func() {
+	Describe("IntElem", func() {
 		slice := []int{123, 456, 789, 101, 102, 103}
-		t2.It("should return a random int element from the slice", func() {
+		It("should return a random int element from the slice", func() {
 			r := randSlice.IntElem(slice)
-			gt.Expect(t2, &r).ToBeIn(slice)
+			Expect(r).To(BeElementOf(slice))
 		})
 	})
-}
+})

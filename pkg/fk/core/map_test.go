@@ -1,15 +1,14 @@
-package core
+package core_test
 
 import (
-	"testing"
-
 	"github.com/nolafw/faker/pkg/fk/common/util"
-	"github.com/yrichika/gest/pkg/gt"
+	"github.com/nolafw/faker/pkg/fk/core"
+	. "github.com/onsi/ginkgo/v2"
+	. "github.com/onsi/gomega"
 )
 
-func TestRandMap(testingT *testing.T) {
-
-	randMap := NewRandMap(util.RandSeed())
+var _ = Describe("Tests for random map functions", func() {
+	randMap := core.NewRandMap(util.RandSeed())
 
 	mockMap1 := map[any]any{
 		"key1": "value1",
@@ -22,35 +21,36 @@ func TestRandMap(testingT *testing.T) {
 		2: {"value21", "value22"},
 	}
 
-	tFunc := gt.CreateTest(testingT)
-	tFunc.Describe("GetRandomKeyValue", func() {
-		tFunc.It("should return string key and string value", func() {
-			kStr, vStr := GetRandomKeyValue(randMap, mockMap1)
+	Describe("GetRandomKeyValue", func() {
+		It("should return string key and string value", func() {
+			kStr, vStr := core.GetRandomKeyValue(randMap, mockMap1)
 			vExpected := mockMap1[kStr]
-			gt.Expect(tFunc, &vStr).ToBe(vExpected)
+			Expect(vStr).To(Equal(vExpected))
 		})
 
-		tFunc.It("should return int key and slice value", func() {
-			kInt, vSlice := GetRandomKeyValue(randMap, mockMap2)
+		It("should return int key and slice value", func() {
+			kInt, vSlice := core.GetRandomKeyValue(randMap, mockMap2)
 			vExpected2 := mockMap2[kInt]
-			gt.Expect(tFunc, &vSlice).ToBe(vExpected2)
+			Expect(vSlice).To(Equal(vExpected2))
 		})
 	})
 
-	t := gt.CreateTest(testingT)
-	t.Describe("RandMap", func() {
-		t.Test("KeyValue should return key and the value", func() {
+	Describe("KeyValue", func() {
+		It("should return key and the value", func() {
 			k, v := randMap.KeyValue(mockMap1)
 
 			vExpected := mockMap1[k]
-			gt.Expect(t, &v).ToBe(vExpected)
-		})
-		t.Test("KeyValue should", func() {
-			k, v := randMap.KeySliceValue(mockMap2)
-
-			vExpected := mockMap2[k]
-			gt.Expect(t, &v).ToBe(vExpected)
+			Expect(v).To(Equal(vExpected))
 		})
 	})
 
-}
+	Describe("KeySliceValue", func() {
+		It("should return key and the value", func() {
+			k, v := randMap.KeySliceValue(mockMap2)
+
+			vExpected := mockMap2[k]
+			Expect(v).To(Equal(vExpected))
+		})
+	})
+
+})

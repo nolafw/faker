@@ -85,7 +85,7 @@ func randMaxRange[N orderable](min N, max N) (N, error) {
 	if min >= max {
 		errMsg := fmt.Sprintf("Invalid range: min=%v, max=%v", min, max)
 		log.WrongUsage(errMsg, 2)
-		err = fmt.Errorf(errMsg)
+		err = fmt.Errorf("%s", errMsg)
 	}
 
 	return max - min, err
