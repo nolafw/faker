@@ -35,11 +35,16 @@ func (c *Color) Hex() string {
 	return fmt.Sprintf("#%06x", number)
 }
 
-// example '#ff0044'
+// example '#ff3300'
 func (c *Color) SafeHex() string {
-	number := c.rand.Num.Intn(256)
-	color := fmt.Sprintf("%03x", number)
-	return "#" + string(color[0]) + string(color[0]) + string(color[1]) + string(color[1]) + string(color[2]) + string(color[2])
+	// Web-safe values in decimal: 0, 51, 102, 153, 204, 255
+	safeValues := []int{0, 51, 102, 153, 204, 255}
+
+	r := safeValues[c.rand.Num.Intn(len(safeValues))]
+	g := safeValues[c.rand.Num.Intn(len(safeValues))]
+	b := safeValues[c.rand.Num.Intn(len(safeValues))]
+
+	return fmt.Sprintf("#%02x%02x%02x", r, g, b)
 }
 
 // example 0, 255, 122
