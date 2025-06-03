@@ -35,12 +35,12 @@ func (b *Barcode) ean(length int) string {
 	digitSym := []byte("#")
 	format := string(bytes.Repeat(digitSym, length-1))
 	code := b.rand.Str.AlphaDigitsLike(format)
-	return code + fmt.Sprint(calcEanCheckDigit(code))
+	return code + fmt.Sprint(CalcEanCheckDigit(code))
 }
 
 // Checksum computes the checksum of an EAN number.
 // See: https://en.wikipedia.org/wiki/International_Article_Number
-func calcEanCheckDigit(digits string) int {
+func CalcEanCheckDigit(digits string) int {
 	sequence := []int{1, 3}
 	if len(digits)+1 == 8 {
 		sequence = []int{3, 1}
@@ -61,7 +61,7 @@ func (b *Barcode) Isbn10() string {
 	digitSym := []byte("#")
 	format := string(bytes.Repeat(digitSym, 9))
 	code := b.rand.Str.AlphaDigitsLike(format)
-	return code + fmt.Sprint(calcIsbnCheckDigit(code))
+	return code + fmt.Sprint(CalcIsbnCheckDigit(code))
 }
 
 // Get a random ISBN-13 code
@@ -76,12 +76,12 @@ func (b *Barcode) Isbn13() string {
 	pubBookCode := b.rand.Str.AlphaDigitsLike(format)
 	code := prefix + pubBookCode
 	// EAN check digit is used here because it's 12 digits
-	return code + fmt.Sprint(calcEanCheckDigit(code))
+	return code + fmt.Sprint(CalcEanCheckDigit(code))
 }
 
 // Checksum calculates the ISBN-10 check digit
 // See: http://en.wikipedia.org/wiki/International_Standard_Book_Number#ISBN-10_check_digits
-func calcIsbnCheckDigit(input string) string {
+func CalcIsbnCheckDigit(input string) string {
 	// We're calculating check digit for ISBN-10
 	// so, the length of the input should be 9
 	length := 9
