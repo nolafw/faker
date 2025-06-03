@@ -175,7 +175,7 @@ f.Color.Name() // example: "Gainsboro"
 
 f.Color.Hex() // example: "#0e457a"
 
-f.Color.SafeHex() // example: "#00dd22"
+f.Color.SafeHex() // example: "#ff3300"
 
 f.Color.RgbAsNum() // example: 15, 247, 177
 

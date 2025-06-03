@@ -1,76 +1,74 @@
-package company
+package company_test
 
 import (
-	"testing"
+	. "github.com/onsi/ginkgo/v2"
+	. "github.com/onsi/gomega"
 
 	"github.com/nolafw/faker/pkg/fk/common/util"
 	"github.com/nolafw/faker/pkg/fk/core"
+	"github.com/nolafw/faker/pkg/fk/generator/company"
 	"github.com/nolafw/faker/pkg/fk/provider/locale/en_US"
 	"github.com/nolafw/faker/pkg/fk/provider/locale/ja_JP"
 	"github.com/nolafw/faker/pkg/fk/testutil"
-	"github.com/yrichika/gest/pkg/gt"
 )
 
-func TestCompany(testingT *testing.T) {
+var _ = Describe("Company", func() {
+
 	localized := en_US.New()
 	coreRand := core.NewRand(util.RandSeed())
-	company := New(coreRand, localized)
+	comp := company.New(coreRand, localized)
 
-	t1 := gt.CreateTest(testingT)
-	t1.Describe("Company", func() {
-		t1.Test("CompanyName should return a company name", func() {
-			r := company.CompanyName()
-			gt.Expect(t1, &r).ToBeIn(*en_US.CompanyNames)
+	Describe("Company", func() {
+		It("CompanyName should return a company name", func() {
+			r := comp.CompanyName()
+			Expect(r).To(BeElementOf(en_US.CompanyNames))
 		})
 
-		t1.Test("CompanySuffix should return a company suffix", func() {
-			r := company.CompanySuffix()
-			gt.Expect(t1, &r).ToBeIn(en_US.CompanySuffixes)
+		It("CompanySuffix should return a company suffix", func() {
+			r := comp.CompanySuffix()
+			Expect(r).To(BeElementOf(en_US.CompanySuffixes))
 		})
 
-		t1.Test("Name should return a company name", func() {
-			r := company.Name()
+		It("Name should return a company name", func() {
+			r := comp.Name()
 			testutil.Output("Company.Name", r)
 		})
 	})
 
-	tJt := gt.CreateTest(testingT)
-	tJt.Describe("JobTitle", func() {
-		tJt.Test("JobTitleName should return a job title name", func() {
-			r := company.JobTitleName()
-			gt.Expect(tJt, &r).ToBeIn(en_US.JobTitleNames)
+	Describe("JobTitle", func() {
+		It("jobTitleName should return a job title name", func() {
+			r := comp.JobTitleName()
+			Expect(r).To(BeElementOf(en_US.JobTitleNames))
 		})
 
-		tJt.Test("JobTitle should return a job title", func() {
-			r := company.JobTitle()
+		It("JobTitle should return a job title", func() {
+			r := comp.JobTitle()
 			testutil.Output("Company.JobTitle", r)
 		})
 	})
 
-	tEin := gt.CreateTest(testingT)
-	tEin.Describe("EIN", func() {
-		tEin.Test("EinPrefix should return a EIN prefix", func() {
-			r := company.EinPrefix()
-			gt.Expect(tEin, &r).ToBeIn(en_US.EinPrefixes)
+	Describe("EIN", func() {
+		It("EinPrefix should return a EIN prefix", func() {
+			r := comp.EinPrefix()
+			Expect(r).To(BeElementOf(en_US.EinPrefixes))
 		})
-		tEin.Test("Ein should return a EIN", func() {
-			r := company.Ein()
-			gt.Expect(tEin, &r).ToMatchRegex(`\d{2}-\d{7}`)
+		It("Ein should return a EIN", func() {
+			r := comp.Ein()
+			Expect(r).To(MatchRegexp(`\d{2}-\d{7}`))
 		})
 	})
 
 	jaJp := ja_JP.New()
-	companyJaJp := New(coreRand, jaJp)
-	tJaJp := gt.CreateTest(testingT)
-	tJaJp.Describe("ja_JP Company", func() {
-		tJaJp.Test("CompanyPrefix should return a company prefix", func() {
-			r := companyJaJp.CompanyPrefix()
-			gt.Expect(tJaJp, &r).ToBeIn(ja_JP.CompanyPrefixes)
+	compJaJp := company.New(coreRand, jaJp)
+	Describe("ja_JP Company", func() {
+		It("CompanyPrefix should return a company prefix", func() {
+			r := compJaJp.CompanyPrefix()
+			Expect(r).To(BeElementOf(ja_JP.CompanyPrefixes))
 		})
 
-		tJaJp.Test("Name should return a company name", func() {
-			r := companyJaJp.Name()
+		It("Name should return a company name", func() {
+			r := compJaJp.Name()
 			testutil.Output("Company.Name", r)
 		})
 	})
-}
+})
