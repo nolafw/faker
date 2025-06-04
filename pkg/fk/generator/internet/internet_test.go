@@ -59,15 +59,17 @@ var _ = Describe("Internet", func() {
 			r := inet.Password()
 			Expect(r).To(MatchRegexp(`^[\d\w]{8,20}$`))
 		})
+	})
 
-		It("TODO: Slug", func() {
-			Skip("Slug: come back when Lorem is done")
-		})
+	It("TODO: Slug", func() {
+		Skip("Slug: come back when Lorem is done")
+	})
 
-		It("TODO: Url", func() {
-			Skip("Url: come back when Lorem is done")
-		})
+	It("TODO: Url", func() {
+		Skip("Url: come back when Lorem is done")
+	})
 
+	Describe("Network", func() {
 		It("Ipv4 should return a random ipv4 address", func() {
 			r := inet.Ipv4()
 			Expect(r).To(MatchRegexp(`^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$`))
