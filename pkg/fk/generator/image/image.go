@@ -36,19 +36,19 @@ const (
 	GIF = ImageFormat("gif")
 )
 
-const maxHeightWidth = 3840
+const MaxHeightWidth = 3840
 
 // the image content will be just white blank image
 // width and height should be less than or eq 3840px
 func (i *Image) Binary(width int, height int, format ImageFormat) ([]byte, error) {
 	imgWidth := width
-	if width > maxHeightWidth {
-		imgWidth = maxHeightWidth
+	if width > MaxHeightWidth {
+		imgWidth = MaxHeightWidth
 		log.GeneralError("Image width is too large, it will be set to 3840px", i.logSkip)
 	}
 	imgHeight := height
-	if height > maxHeightWidth {
-		imgHeight = maxHeightWidth
+	if height > MaxHeightWidth {
+		imgHeight = MaxHeightWidth
 		log.GeneralError("Image height is too large, it will be set to 3840px", i.logSkip)
 	}
 

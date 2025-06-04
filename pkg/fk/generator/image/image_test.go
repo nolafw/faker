@@ -1,116 +1,122 @@
-package image
+package image_test
 
 import (
 	"bytes"
 	"encoding/base64"
 	stdimage "image"
-	"testing"
+
+	. "github.com/onsi/ginkgo/v2"
+	. "github.com/onsi/gomega"
 
 	"github.com/nolafw/faker/pkg/fk/common/util"
 	"github.com/nolafw/faker/pkg/fk/core"
+	"github.com/nolafw/faker/pkg/fk/generator/image"
 	"github.com/nolafw/faker/pkg/fk/provider"
 	"github.com/nolafw/faker/pkg/fk/provider/global"
-	"github.com/yrichika/gest/pkg/gt"
 )
 
-func TestImage(testingT *testing.T) {
+var _ = Describe("Image", func() {
 	coreRand := core.NewRand(util.RandSeed())
 	global := &provider.Global{
 		Images: global.CreateImages(),
 	}
 
-	image := New(coreRand, global)
+	imgFk := image.New(coreRand, global)
 
-	tBin := gt.CreateTest(testingT)
-	tBin.Describe("Binary", func() {
-		tBin.Test("should return specified image binary data", func() {
-			r, err := image.Binary(100, 100, JPG)
+	Describe("Binary", func() {
+		It("should return specified image binary data", func() {
+			r, err := imgFk.Binary(100, 100, image.JPG)
 			img, format, _ := stdimage.Decode(bytes.NewReader(r))
 
-			gt.Expect(tBin, &err).ToBeNilInterface()
-			gt.Expect(tBin, &format).ToBe("jpeg")
-
+			Expect(err).To(BeNil())
+			Expect(format).To(Equal("jpeg"))
 			bounds := img.Bounds()
 			width := bounds.Dx()
-			gt.Expect(tBin, &width).ToBe(100)
+			Expect(width).To(Equal(100))
 			height := bounds.Dy()
-			gt.Expect(tBin, &height).ToBe(100)
+			Expect(height).To(Equal(100))
 		})
 
-		tBin.Test("should return 3840px width image even if more than that is specified", func() {
-			r, _ := image.Binary(4000, 100, JPG)
-			img, _, _ := stdimage.Decode(bytes.NewReader(r))
+		When("more than 3840px width is specified", func() {
+			It("should return 3840px width image", func() {
+				r, _ := imgFk.Binary(4000, 100, image.JPG)
 
-			bounds := img.Bounds()
-			width := bounds.Dx()
-			gt.Expect(tBin, &width).ToBe(maxHeightWidth)
+				img, _, _ := stdimage.Decode(bytes.NewReader(r))
+				bounds := img.Bounds()
+				width := bounds.Dx()
+				Expect(width).To(Equal(image.MaxHeightWidth))
+			})
 		})
 
-		tBin.Test("should return 3840px height image even if more than that is specified", func() {
-			r, _ := image.Binary(100, 4000, JPG)
-			img, _, _ := stdimage.Decode(bytes.NewReader(r))
+		When("more than 3840px height is specified", func() {
+			It("should return 3840px height image", func() {
+				r, _ := imgFk.Binary(100, 4000, image.JPG)
 
-			bounds := img.Bounds()
-			height := bounds.Dy()
-			gt.Expect(tBin, &height).ToBe(maxHeightWidth)
+				img, _, _ := stdimage.Decode(bytes.NewReader(r))
+				bounds := img.Bounds()
+				height := bounds.Dy()
+				Expect(height).To(Equal(image.MaxHeightWidth))
+			})
 		})
 
-		tBin.Test("should return default jpg image even if other format specified", func() {
-			r, _ := image.Binary(100, 100, "other_image_format")
-			_, format, _ := stdimage.Decode(bytes.NewReader(r))
+		When("an unsupported format is specified", func() {
+			It("should return default jpg image", func() {
+				r, _ := imgFk.Binary(100, 100, "unsupported_format")
 
-			gt.Expect(tBin, &format).ToBe("jpeg")
+				_, format, _ := stdimage.Decode(bytes.NewReader(r))
+				Expect(format).To(Equal("jpeg"))
+			})
 		})
 	})
 
-	tObj := gt.CreateTest(testingT)
-	tObj.Describe("Object", func() {
-		tObj.Test("should return specified image object", func() {
-			img, err := image.Object(100, 100, JPG)
+	Describe("Object", func() {
+		It("should return specified image object", func() {
+			img, err := imgFk.Object(100, 100, image.JPG)
 
-			gt.Expect(tObj, &err).ToBeNilInterface()
-
+			Expect(err).To(BeNil())
 			bounds := img.Bounds()
 			width := bounds.Dx()
-			gt.Expect(tObj, &width).ToBe(100)
+			Expect(width).To(Equal(100))
 			height := bounds.Dy()
-			gt.Expect(tObj, &height).ToBe(100)
+			Expect(height).To(Equal(100))
 		})
 
-		tObj.Test("log output when width is more than max width", func() {
-			img, _ := image.Object(4000, 100, JPG)
+		When("more than 3840px width is specified", func() {
+			It("should log an error and return 3840px width image", func() {
+				img, _ := imgFk.Object(4000, 100, image.JPG)
 
-			bounds := img.Bounds()
-			width := bounds.Dx()
-			gt.Expect(tObj, &width).ToBe(maxHeightWidth)
+				bounds := img.Bounds()
+				width := bounds.Dx()
+				Expect(width).To(Equal(image.MaxHeightWidth))
+			})
 		})
 	})
 
-	t64 := gt.CreateTest(testingT)
-	t64.Describe("Base64", func() {
-		t64.Test("should return base64 string image", func() {
-			r, err := image.Base64(100, 100, JPG)
+	Describe("Base64", func() {
+		It("should return base64 string image", func() {
+			r, err := imgFk.Base64(100, 100, image.JPG)
+
 			img, _ := base64ToImage(r)
-
-			gt.Expect(t64, &err).ToBeNilInterface()
-
+			Expect(err).To(BeNil())
 			bounds := img.Bounds()
 			width := bounds.Dx()
-			gt.Expect(t64, &width).ToBe(100)
+			Expect(width).To(Equal(100))
 			height := bounds.Dy()
-			gt.Expect(t64, &height).ToBe(100)
+			Expect(height).To(Equal(100))
 		})
 
-		t64.Test("log output when width is more than max width", func() {
-			r, _ := image.Base64(4000, 100, JPG)
-			img, _ := base64ToImage(r)
+		When("more than 3840px width is specified", func() {
+			It("should log an error and return 3840px width image", func() {
+				r, _ := imgFk.Base64(4000, 100, image.JPG)
 
-			bounds := img.Bounds()
-			width := bounds.Dx()
-			gt.Expect(t64, &width).ToBe(maxHeightWidth)
+				img, _ := base64ToImage(r)
+				bounds := img.Bounds()
+				width := bounds.Dx()
+				Expect(width).To(Equal(image.MaxHeightWidth))
+			})
 		})
 	})
-}
+})
 
 func base64ToImage(base64Str string) (stdimage.Image, error) {
 	// Decode the base64 string to binary data
