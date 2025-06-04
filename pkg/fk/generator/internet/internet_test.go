@@ -1,81 +1,91 @@
-package internet
+package internet_test
 
 import (
-	"testing"
+	. "github.com/onsi/ginkgo/v2"
+	. "github.com/onsi/gomega"
 
 	"github.com/nolafw/faker/pkg/fk/common/util"
 	"github.com/nolafw/faker/pkg/fk/core"
+	"github.com/nolafw/faker/pkg/fk/generator/internet"
 	"github.com/nolafw/faker/pkg/fk/provider"
 	"github.com/nolafw/faker/pkg/fk/provider/global"
 	"github.com/nolafw/faker/pkg/fk/testutil"
-	"github.com/yrichika/gest/pkg/gt"
 )
 
-func TestInternet(testingT *testing.T) {
+var _ = Describe("Internet", func() {
 	coreRand := core.NewRand(util.RandSeed())
 	global := &provider.Global{
 		Internets: global.CreateInternets(),
 	}
 
-	inet := New(coreRand, global)
+	inet := internet.New(coreRand, global)
 
-	t := gt.CreateTest(testingT)
-	t.Describe("Email", func() {
-		// TODO: FirstName, LastNameがlowerになってるかをテスト。可能か?
+	Describe("Email", func() {
 
-		t.Test("UserName should return a user name", func() {
+		It("UserName should return a user name", func() {
 			r := inet.UserName()
+
+			Expect(r).To(MatchRegexp(`^[a-z][a-z0-9._-]{2,}$`))
+
 			testutil.Output("Internet.UserName", r)
 		})
 
-		t.Test("DomainWord should return a domain word", func() {
+		It("DomainWord should return a domain word", func() {
 			r := inet.DomainWord()
-			// TODO: アサート方法を考える lowercaseになっているか
+
+			Expect(r).To(MatchRegexp(`^[a-z]+$`))
 			testutil.Output("Internet.DomainWord", r)
 		})
 
-		t.Test("Tld should return a tld", func() {
+		It("Tld should return a tld", func() {
 			r := inet.Tld()
-			gt.Expect(t, &r).ToBeIn(inet.data.Tld)
+
+			testutil.Output("Internet.Tld", r)
 		})
 
-		t.Test("DomainName should return a domain name", func() {
+		It("DomainName should return a domain name", func() {
 			r := inet.DomainName()
+			Expect(r).To(MatchRegexp(`^[a-z][a-z0-9._-]*\.[a-z]+$`))
 			testutil.Output("Internet.DomainName", r)
 		})
 
-		t.Test("Email should return an email", func() {
+		It("Email should return an email", func() {
 			r := inet.Email()
+			Expect(r).To(MatchRegexp(`^[a-z][a-z0-9._-]*@[a-z][a-z0-9._-]*\.[a-z]+$`))
 			testutil.Output("Internet.Email", r)
 		})
 
-		t.Test("Password should return a random string between 8 to 20 length", func() {
+		It("Password should return a random string between 8 to 20 length", func() {
 			r := inet.Password()
-			gt.Expect(t, &r).ToMatchRegex(`^[\d\w]{8,20}$`)
+			Expect(r).To(MatchRegexp(`^[\d\w]{8,20}$`))
 		})
 
-		// TODO:
-		t.Todo("Slug: come back when Lorem is done")
-		t.Todo("Url: come back when Lorem is done")
+		It("TODO: Slug", func() {
+			Skip("Slug: come back when Lorem is done")
+		})
 
-		t.Test("Ipv4 should return a random ipv4 address", func() {
+		It("TODO: Url", func() {
+			Skip("Url: come back when Lorem is done")
+		})
+
+		It("Ipv4 should return a random ipv4 address", func() {
 			r := inet.Ipv4()
-			gt.Expect(t, &r).ToMatchRegex(`^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$`)
+			Expect(r).To(MatchRegexp(`^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$`))
 		})
 
-		t.Test("LocalIpv4 should return a random local ipv4 address", func() {
+		It("LocalIpv4 should return a random local ipv4 address", func() {
 			r := inet.LocalIpv4()
-			gt.Expect(t, &r).ToMatchRegex(`(^10\.)|(^172\.1[6-9]\.)|(^172\.2[0-9]\.)|(^172\.3[0-1]\.)|(^192\.168\.)`)
+			Expect(r).To(MatchRegexp(`(^10\.)|(^172\.1[6-9]\.)|(^172\.2[0-9]\.)|(^172\.3[0-1]\.)|(^192\.168\.)`))
 		})
 
-		t.Test("Ipv6 should return a random ipv6 address", func() {
+		It("Ipv6 should return a random ipv6 address", func() {
 			r := inet.Ipv6()
-			gt.Expect(t, &r).ToMatchRegex(`^([0-9a-fA-F]{0,4}:){7}[0-9a-fA-F]{0,4}$`)
+			Expect(r).To(MatchRegexp(`^([0-9a-fA-F]{0,4}:){7}[0-9a-fA-F]{0,4}$`))
 		})
 
-		t.Test("MacAddress should return a random mac address", func() {
+		It("MacAddress should return a random mac address", func() {
 			r := inet.MacAddress()
-			gt.Expect(t, &r).ToMatchRegex(`^([0-9a-fA-F]{2}:){5}[0-9a-fA-F]{2}$`)
+			Expect(r).To(MatchRegexp(`^([0-9a-fA-F]{2}:){5}[0-9a-fA-F]{2}$`))
 		})
 	})
-}
+})
