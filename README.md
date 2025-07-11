@@ -14,18 +14,18 @@ Go >= 1.22
 ## Installation
 
 ```
-go get github.com/nolafw/faker/pkg/fk
+go get github.com/nolafw/faker/pkg/faker
 ```
 
 ## fakerのインスタンス作成
 
 ```go
 // デフォルトでは、localeがen_USで作成されます
-f := fk.Create()
+f := faker.Create()
 
 // 日本語のロケールで作成する場合は、CreateWithLocale()を使います。
 j := ja_JP.New()
-jp := fk.CreateWithLocale(j)
+jp := faker.CreateWithLocale(j)
 ```
 
 ## メソッド
@@ -38,7 +38,7 @@ jp := fk.CreateWithLocale(j)
 #### Bool
 
 ```go
-f := fk.Create()
+f := faker.Create()
 
 // true/falseが50%ずつの確率
 fake := f.Rand.Bool.Evenly() // example: true

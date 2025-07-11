@@ -3,13 +3,13 @@ package main
 import (
 	"time"
 
-	"github.com/nolafw/faker/pkg/fk"
-	"github.com/nolafw/faker/pkg/fk/provider/locale/ja_JP"
+	"github.com/nolafw/faker/pkg/faker"
+	"github.com/nolafw/faker/pkg/faker/provider/locale/ja_JP"
 )
 
 func main() {
-	f := fk.Create()
-	jf := fk.CreateWithLocale(ja_JP.New())
+	f := faker.Create()
+	jf := faker.CreateWithLocale(ja_JP.New())
 
 	// bool
 	f.Rand.Bool.Evenly()
